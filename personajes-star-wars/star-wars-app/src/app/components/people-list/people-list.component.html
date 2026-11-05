@@ -1,0 +1,42 @@
+<div class="container py-4">
+  <h1 class="mb-4">Personajes de Star Wars</h1>
+
+  @if (loading()) {
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  } @else if (error()) {
+    <div class="alert alert-danger">No se han podido cargar los personajes.</div>
+  } @else {
+    <div class="row g-3">
+      @for (person of peopleList(); track person.id) {
+        <div class="col-12 col-sm-6 col-lg-4">
+          <app-people-item [person]="person" (personClick)="openModal($event)" />
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<ng-template #personModal let-modal>
+  @if (selectedPerson(); as person) {
+    <div class="modal-header">
+      <h4 class="modal-title">{{ person.name }}</h4>
+      <button type="button" class="btn-close" aria-label="Cerrar" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Altura: {{ person.height }} cm</li>
+        <li class="list-group-item">Peso: {{ person.mass }} kg</li>
+        <li class="list-group-item">Pelo: {{ person.hair_color }}</li>
+        <li class="list-group-item">Piel: {{ person.skin_color }}</li>
+        <li class="list-group-item">Ojos: {{ person.eye_color }}</li>
+        <li class="list-group-item">Nacimiento: {{ person.birth_year }}</li>
+        <li class="list-group-item">Género: {{ person.gender }}</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">Cerrar</button>
+    </div>
+  }
+</ng-template>

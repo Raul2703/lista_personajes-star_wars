@@ -1,0 +1,8 @@
+.person-card {
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.person-card:hover {
+  transform: translateY(-3px);
+}
